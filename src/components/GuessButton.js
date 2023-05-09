@@ -1,15 +1,15 @@
 export default function GuessButton(props) {
 
   function checkIfRightGuess(e, typeOfArt) {
-    let updateGame = typeOfArt[1];
+    let updateTypeOfArt = typeOfArt[1];
     let updateScore = typeOfArt[2];
+    let gameOver = typeOfArt[3];
     let buttonTypeClicked = e.target.firstChild.data; 
-    console.log(((typeOfArt[0] === 1) && (buttonTypeClicked === "Ai Generated")) || ((typeOfArt[0] === 0) && (buttonTypeClicked === "Not Ai Generated")))
     if (((typeOfArt[0] === 1) && (buttonTypeClicked === "Ai Generated")) || ((typeOfArt[0] === 0) && (buttonTypeClicked === "Not Ai Generated"))) {
-        updateGame();
+        updateTypeOfArt();
         updateScore("correct guess");
     } else {
-      updateScore("incorrect guess");
+      gameOver();
     }
 }
 

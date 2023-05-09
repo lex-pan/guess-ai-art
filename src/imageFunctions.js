@@ -18,7 +18,6 @@ export function getImageUrl(typeOfArt) {
 }
 
 export function randomize() {
-    console.log("randomize running");
     return Math.floor(Math.random() * 2);
 }
 

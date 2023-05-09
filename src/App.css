@@ -72,3 +72,47 @@
   margin-top: 2em;
   font-size: 22px;
 }
+
+.gameOverSection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(87, 105, 117);
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.gameOverSection.visible {
+  visibility: visible;
+}
+
+.gameOverTitle {
+  color: white;
+  font-size: 4em;
+}
+
+.gameOverScore {
+  color: white;
+  font-size: 3em;
+}
+
+.gameOverButton {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  margin: 1%;
+  width: 10%;
+  font-size: 18px;
+  height: 3em;
+  cursor: pointer;
+}
+
+.gameOverButton:hover {
+  border: 1px solid black;
+}
