@@ -15,8 +15,14 @@ export default function GuessButton(props) {
 
   return (
         <div className='buttonSection'>
-            <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Not Ai Generated</button>
-            <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Ai Generated</button>
+            <div className="buttonRow">
+              <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Animal Name 1</button>
+              <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Animal Name 2</button>
+            </div>
+            <div className="buttonRow">
+              <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Animal Name 3</button>
+              <button onClick={(e) => checkIfRightGuess(e, props.guess)} className='guessButton'>Animal Name 4</button>
+            </div>
         </div>
   )
 }

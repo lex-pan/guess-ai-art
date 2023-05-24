@@ -17,19 +17,12 @@ export function getImageUrl(typeOfArt) {
     return imageUrl;
 }
 
-export function randomize() {
-    return Math.floor(Math.random() * 2);
+export function functionNameTwo() {
+
 }
 
-export function functionNamethree() {
+export function functionNameThree() {
     return (
         <></>
     )
 }
-
-export function functionNamefour() {
-    return (
-        <></>
-    )
-}
-
