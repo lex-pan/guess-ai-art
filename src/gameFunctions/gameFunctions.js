@@ -21,11 +21,10 @@ export function randomizeNames(range, amountOfNumbers) {
     return animalsChosen;
 }
 
-export function correctAnimal(listOfAnimalNames) {
-    let randomNumber = Math.floor(Math.random() * listOfAnimalNames.length);
-    return listOfAnimalNames[randomNumber];
+export function correctAnimalIndex(range) {
+    let randomNumber = Math.floor(Math.random() * range);
+    return randomNumber;
 }
-
 
 export function getImageUrl(typeOfArt) {
     /* if type is 1 then Ai Art should be used. If result is 0, 
