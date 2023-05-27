@@ -8,19 +8,23 @@ export default function GuessButton(props) {
   let updateScore = props.guess[4];
   const [correctIndex, setCorrectIndex] = useState(null);
   const [wrongIndex, setWrongIndex] = useState(null);
+  console.log(correct_answer_index);
   console.log(correct_answer);
 
   function checkIfRightGuess(e) {
     let buttonClicked = e.target; 
     if (buttonClicked.firstChild.data === correct_answer) {
       answerAnimation("correct guess", buttonClicked);
-      console.log("update start");
-      updateAnimalChoices();
-      console.log("update finish");
-      updateScore("correct guess");
+      setTimeout(() => {
+        updateAnimalChoices();
+        updateScore("correct guess");
+      }, 500);
     } else {
       answerAnimation("wrong guess", buttonClicked);
-      updateScore("incorrect guess");
+      setTimeout(() => {
+        updateAnimalChoices();
+        updateScore("incorrect guess");
+      }, 500);
     }
   }
 
@@ -29,19 +33,25 @@ export default function GuessButton(props) {
     if (answer === "correct guess") {
       setCorrectIndex(buttonClickedIndex);
       setWrongIndex(null);
+      setTimeout(() => {
+        setCorrectIndex(null);
+        setWrongIndex(null);
+      }, 500);
     }  else {
-      console.log(correctIndex);
       setCorrectIndex(correct_answer_index);
       setWrongIndex(buttonClickedIndex);
+      setTimeout(() => {
+        setCorrectIndex(null);
+        setWrongIndex(null);        
+      }, 500);
     }
+
   }
 
   return (
         <div className='buttonSection'>
             <div className="buttonRow">
-              <button onClick={(e) => checkIfRightGuess(e, props.guess)} 
-              className={`guessButton ${correctIndex === 0 ? "correct" : ""}${wrongIndex === 0 ? "wrong" : ""}`} 
-              data-index={0}>{animal_names[0]}</button>
+              <button onClick={(e) => checkIfRightGuess(e, props.guess)} className={`guessButton ${correctIndex === 0 ? "correct" : ""}${wrongIndex === 0 ? "wrong" : ""}`} data-index={0}>{animal_names[0]}</button>
               <button onClick={(e) => checkIfRightGuess(e, props.guess)} className={`guessButton ${correctIndex === 1 ? "correct" : ""}${wrongIndex === 1 ? "wrong" : ""}`} data-index={1}>{animal_names[1]}</button>
             </div>
             <div className="buttonRow">

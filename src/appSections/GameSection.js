@@ -14,6 +14,12 @@ export default function GameSection(props) {
   const [animalIndex, setAnimalIndex] = useState(0);
   const [animal, setAnimal] = useState([]);
   const [artUrlLink, setArtUrlLink] = useState(getImageUrl(animal));
+  const [alternating, setAlternating] = useState(5);
+
+  function toggleAlternating() {
+    console.log("toggling");
+    setAlternating(alternating => alternating+1);
+  }
 
   function gameState() {
     setGameOver(currentGameState => currentGameState ? false : true);
@@ -48,20 +54,25 @@ export default function GameSection(props) {
     gameState();
     updateScore("incorrect guess");
   }
-
+  
   //after animal options has been decided, gets the correct animal index
   useEffect(() =>{
     updateAnimalIndex();
+    toggleAlternating();
     console.log(animalChoices);
-    updateCorrectAnimal();
-    //update description
   }, [animalChoices]);
+
+  useEffect(() =>{
+    console.log(animalIndex);
+    console.log(alternating);
+    updateCorrectAnimal();
+  }, [alternating]);
 
   //after getting the correct animal name, update the image and description by calling the api
   useEffect(() =>{
     updateImageUrl();
     //update description
-  }, [animal]);
+  }, [animal, alternating]);
     
     return (
       <div className='gameSection'>
