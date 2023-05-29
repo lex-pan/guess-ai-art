@@ -1,11 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {getImageUrl} from "../gameFunctions/gameFunctions";
 import Desciption from '../gameComponents/Description'
 import GameOverScreen from '../gameComponents/GameOverScreen'
 import Image from '../gameComponents/Image'
 import GuessButton from '../gameComponents/GuessButton'
-import {randomizeNames, correctAnimalIndex} from '../gameFunctions/gameFunctions'
+import {randomizeNames, correctAnimalIndex, getAnimalDescription} from '../gameFunctions/gameFunctions'
 import animalNames from '../gameFunctions/animalNames';
+import { render } from '@testing-library/react';
+
+/* This section is to display the game UI */
+/*How it renders,
+first render: uses initial usestate values, calling all three useeffects
+second render: updates animal index
+third render: updates animal name
+fourth render: calls image and description api based on animal name
+fifth/sixth render: when api call for image url and description come 
+*/
 
 export default function GameSection(props) {
   const animal_names_list = animalNames();
@@ -13,12 +23,17 @@ export default function GameSection(props) {
   const [animalChoices, setAnimalChoices] = useState(randomizeNames(animal_names_list.length, 4));
   const [animalIndex, setAnimalIndex] = useState(0);
   const [animal, setAnimal] = useState([]);
-  const [artUrlLink, setArtUrlLink] = useState(getImageUrl(animal));
-  const [alternating, setAlternating] = useState(5);
+  const [animalInfo, setAnimalInfo] = useState([]); 
+  const [artUrlLink, setArtUrlLink] = useState("");
+  const [indexTracker, setindexTracker] = useState(0);
+  const [animalTracker, setAnimalTracker]= useState(0);
 
-  function toggleAlternating() {
-    console.log("toggling");
-    setAlternating(alternating => alternating+1);
+  function updateIndexTracker() {
+    setindexTracker(indexTracker => indexTracker+1);
+  }
+
+  function updateAnimalTracker() {
+    setAnimalTracker(animalTracker => animalTracker+1);
   }
 
   function gameState() {
@@ -35,6 +50,12 @@ export default function GameSection(props) {
 
   function updateCorrectAnimal() {
     setAnimal(animalChoices[animalIndex]);
+  }
+
+  async function updateAnimalInfo() {
+    // change parameter to animal later
+    let info = await getAnimalDescription("Angelfish");
+    setAnimalInfo(info);
   }
 
   function updateScore(gameCondition){
@@ -58,21 +79,25 @@ export default function GameSection(props) {
   //after animal options has been decided, gets the correct animal index
   useEffect(() =>{
     updateAnimalIndex();
-    toggleAlternating();
-    console.log(animalChoices);
+    updateIndexTracker();
   }, [animalChoices]);
 
+  // changes after toggling because if index were to reroll on the same value
+  // then, there would be no update
   useEffect(() =>{
-    console.log(animalIndex);
-    console.log(alternating);
-    updateCorrectAnimal();
-  }, [alternating]);
+    if (indexTracker > 0) {
+      updateCorrectAnimal();
+      updateAnimalTracker();
+    }
+  }, [indexTracker]);
 
   //after getting the correct animal name, update the image and description by calling the api
   useEffect(() =>{
-    updateImageUrl();
-    //update description
-  }, [animal, alternating]);
+    if (animalTracker > 0) {
+      updateImageUrl();
+      updateAnimalInfo();
+    }
+  }, [animal]);
     
     return (
       <div className='gameSection'>
@@ -81,7 +106,7 @@ export default function GameSection(props) {
             < GuessButton guess={[animalChoices, animal, animalIndex, updateAnimalChoices, updateScore]} />
             < GameOverScreen gameState={[gameOver, restartGame]} score={props.score[0]}/>
           </div>
-        < Desciption />           
+        < Desciption animalDescription={animalInfo} />           
       </div>
     )
   }

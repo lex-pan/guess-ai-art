@@ -8,8 +8,6 @@ export default function GuessButton(props) {
   let updateScore = props.guess[4];
   const [correctIndex, setCorrectIndex] = useState(null);
   const [wrongIndex, setWrongIndex] = useState(null);
-  console.log(correct_answer_index);
-  console.log(correct_answer);
 
   function checkIfRightGuess(e) {
     let buttonClicked = e.target; 

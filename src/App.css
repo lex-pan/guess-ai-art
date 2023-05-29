@@ -47,6 +47,7 @@
 .gameTitle {
   z-index: 1;
   font-size: 28px;
+  margin-left: 3em;
   position: relative;
   cursor: pointer;
   color: white;
@@ -100,6 +101,14 @@
   color: black;
   padding: 1em;
   font-size: 18px;
+}
+
+.listOfAnimalCharacteristics {
+  margin-left: 0.8em;
+}
+
+.animalCharacteristics {
+  margin: 0.5em;
 }
 
 .buttonSection {
